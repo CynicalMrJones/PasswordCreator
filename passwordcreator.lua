@@ -1,6 +1,5 @@
 
 function DrawMenu()
-    os.execute("clear")
     print(" ---------------------------------------------------------------------------")
     print("|   Hello and welcome the the password manager!                             |")
     print("|   What would you like to do?                                              |")
@@ -14,7 +13,6 @@ function DrawMenu()
 end
 
 function opt1() --This serves as what happens when the user picks option 1 hence the name
-    os.execute("clear")
     print("What is the name of the service that the password is for")
     local input = io.read()
     print("What is the password")
@@ -119,7 +117,6 @@ function opt5()
 end
 
 function opt6()
-    os.execute("clear")
     os.execute("exit")
 end
 
