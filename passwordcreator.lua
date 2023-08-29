@@ -1,4 +1,5 @@
 
+--This is a Dogshit password generator and app
 function DrawMenu()
     print(" ---------------------------------------------------------------------------")
     print("|   Hello and welcome the the password manager!                             |")
@@ -136,6 +137,3 @@ elseif answer == "5" then
 elseif answer == "6" then
     opt6()
 end
-
-
-
