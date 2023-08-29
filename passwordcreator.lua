@@ -1,5 +1,5 @@
 
---This is a Dogshit password generator and app
+--This is a Dogshit password generator and app again
 function DrawMenu()
     print(" ---------------------------------------------------------------------------")
     print("|   Hello and welcome the the password manager!                             |")
