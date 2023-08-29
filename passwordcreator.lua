@@ -38,7 +38,6 @@ end
 --Still running into the problem of every entry getting added to the table
 --Ideas on how to fix:
 --1) Change how the file is read to get more fine control over which line it reads
---2) Thats all I got LMAO
 function opt2() --WIP
     local services = {}
     local linecount = 1
