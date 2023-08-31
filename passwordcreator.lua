@@ -81,7 +81,7 @@ function opt3()
     end
 
     local function symbols() --Seperate function for the symbol selection
-        local i = 1
+        i = 1
         local chars = "!@#$%^&*()<>?" -- The Char Library
         local rint = math.random(1, #chars) -- 1 out of length of chars
         local rchar = chars:sub(rint, rint)
@@ -98,6 +98,7 @@ function opt3()
     print(final)
     print("Would you like to record this password and use it for a service (y/n)?")
     local answer = io.read()
+    local pword
     if answer == "y" then
         print("What service is it for?:")
         answer = io.read()
