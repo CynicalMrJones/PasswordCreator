@@ -13,7 +13,7 @@ function DrawMenu()
     print(" ---------------------------------------------------------------------------")
 end
 
-function opt1() --This serves as what happens when the user picks option 1 hence the name
+local function opt1() --This serves as what happens when the user picks option 1 hence the name
     print("What is the name of the service that the password is for")
     local input = io.read()
     print("What is the password")
@@ -26,7 +26,7 @@ function opt1() --This serves as what happens when the user picks option 1 hence
     print("Password Successfully saved")
 end
 
-function opt1mod(answer, pword) --This is a mod of option one that is only called in option 3. Very simple
+local function opt1mod(answer, pword) --This is a mod of option one that is only called in option 3. Very simple
     local j = io.open("file.txt","a")
     io.output(j)
     io.write(answer, "\n", pword, "\n")
@@ -37,22 +37,24 @@ end
 --Still running into the problem of every entry getting added to the table
 --Ideas on how to fix:
 --1) Change how the file is read to get more fine control over which line it reads
-function opt2() --WIP
+local function opt2() --WIP
     local services = {}
     local linecount = 1
     local f = io.input("file.txt")
     while linecount < 10 do
         if math.fmod(linecount, 2) == 0 then
-            linecount = linecount + 1
-        else
-           local line = io.read("l")
-           table.insert(services, line)
            linecount = linecount + 1
+        else
+          local line = io.read()
+          print(line)
+          table.insert(services, line)
+          linecount = linecount + 1
         end
     end
-    for i=1,10 do
-        print(services[i])
-    end
+
+--    for i=1,10 do
+--        print(services[i])
+--    end
 end
 
 --This function is gross and needs to be updated but its functional
@@ -61,7 +63,7 @@ end
 --letters followed by random symbols
 --2) Figuring out what needs to be local and what needs to be global
 --3) General name changes to be more specific ex. Changin pt1 to be more specific
-function opt3() 
+local function opt3()
     math.randomseed(os.time())
     local num = math.random(7,9)
     local i = 1
@@ -110,15 +112,15 @@ function opt3()
     end
 end
 
-function opt4()
+local function opt4()
     
 end
 
-function opt5()
+local function opt5()
     
 end
 
-function opt6()
+local function opt6()
     os.execute("exit")
 end
 
