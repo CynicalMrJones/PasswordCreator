@@ -41,7 +41,7 @@ local function opt2() --WIP
     local services = {}
     local linecount = 1
     local f = io.input("file.txt")
-    while linecount < 10 do
+    while linecount <  20 do
         if math.fmod(linecount, 2) == 0 then
            linecount = linecount + 1
         else
