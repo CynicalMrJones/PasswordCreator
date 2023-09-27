@@ -1,6 +1,31 @@
 
+function Loadtable()
+    Services = {}
+    Password = {}
+    local linecount = 0
+    local i = 0
+    for line in io.lines("username.txt") do
+        linecount = linecount + 1
+    end
+    local file = io.input("username.txt")
+    while i <= linecount do
+        local temp = io.read("l")
+        table.insert(Services, temp)
+        i = i + 1
+    end
+    io.close()
+    local pword = io.input("password.txt")
+    local w = 0
+    while w <= linecount do
+        local temp2 = io.read("l")
+        table.insert(Password, temp2)
+        w = w + 1
+    end
+    io.close()
+end
 --This is a Dogshit password generator and app again
 function DrawMenu()
+    os.execute("clear")
     print(" ---------------------------------------------------------------------------")
     print("|   Hello and welcome the the password manager!                             |")
     print("|   What would you like to do?                                              |")
@@ -15,22 +40,30 @@ end
 
 local function opt1() --This serves as what happens when the user picks option 1 hence the name
     print("What is the name of the service that the password is for")
-    local input = io.read()
+    local service = io.stdin:read()
     print("What is the password")
-    local password = io.read()
-    local f = io.open("file.txt","a")
-    io.output(f)
-    io.write(input, "\n", password, "\n")
-    io.close(f)
+    local password = io.stdin:read()
+    local U = io.open("username.txt","a")
+    io.output(U)
+    io.write(service,"\n")
+    io.close(U)
+    local P = io.open("password.txt","a")
+    io.output(P)
+    io.write(password,"\n")
+    io.close(P)
     DrawMenu()
     print("Password Successfully saved")
 end
 
 local function opt1mod(answer, pword) --This is a mod of option one that is only called in option 3. Very simple
-    local j = io.open("file.txt","a")
-    io.output(j)
-    io.write(answer, "\n", pword, "\n")
-    io.close(j)
+    local U = io.open("username.txt","a")
+    io.output(U)
+    io.write(answer,"\n")
+    io.close(U)
+    local P = io.open("password.txt","a")
+    io.output(P)
+    io.write(pword,"\n")
+    io.close(P)
 end
 
 --WIP still but ive made progress
@@ -38,24 +71,44 @@ end
 --Ideas on how to fix:
 --1) Change how the file is read to get more fine control over which line it reads
 local function opt2() --WIP
-    local services = {}
-    local linecount = 1
-    local f = io.input("file.txt")
-    while linecount <  20 do
-        if math.fmod(linecount, 2) == 0 then
-           linecount = linecount + 1
+    Services = {}
+    Password = {}
+    local linecount = 0
+    local i = 0
+    for line in io.lines("username.txt") do
+        linecount = linecount + 1
+    end
+    local file = io.input("username.txt")
+    while i <= linecount do
+        local temp = io.read("l")
+        table.insert(Services, temp)
+        i = i + 1
+    end
+    io.close()
+    local pword = io.input("password.txt")
+    local w = 0
+    while w <= linecount do
+        local temp2 = io.read("l")
+        table.insert(Password, temp2)
+        w = w + 1
+    end
+    io.close()
+    print("What services password are you searching for?:")
+    local answer2 = io.stdin:read()
+    local j = 1
+    while j <= linecount do
+        if Services[j] == answer2 then
+            print(Password[j])
+            break
+        elseif j == linecount then
+            print("Unable to find password")
+            break
         else
-          local line = io.read()
-          print(line)
-          table.insert(services, line)
-          linecount = linecount + 1
+            j = j + 1
         end
     end
-
---    for i=1,10 do
---        print(services[i])
---    end
 end
+
 
 --This function is gross and needs to be updated but its functional
 --Here is a list of possible changes to make it better:
@@ -99,11 +152,11 @@ local function opt3()
     local final = pt1 .. symbols()
     print(final)
     print("Would you like to record this password and use it for a service (y/n)?")
-    local answer = io.read()
+    local answer = io.stdin:read()
     local pword
     if answer == "y" then
         print("What service is it for?:")
-        answer = io.read()
+        answer = io.stdin:read()
         pword = final
         opt1mod(answer, pword)
         DrawMenu()
@@ -113,6 +166,9 @@ local function opt3()
 end
 
 local function opt4()
+    for k,v in pairs(Services) do
+        print(k,v)
+    end
     
 end
 
@@ -124,9 +180,10 @@ local function opt6()
     os.execute("exit")
 end
 
+Loadtable()
 DrawMenu()
 print("What option would you like?:")
-local answer = io.read()
+local answer = io.stdin:read()
 if answer == "1" then
     opt1()
 elseif answer == "2" then
