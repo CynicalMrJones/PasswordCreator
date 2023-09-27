@@ -2,13 +2,13 @@
 function Loadtable()
     Services = {}
     Password = {}
-    local linecount = 0
+    Linecount = 0
     local i = 0
     for line in io.lines("username.txt") do
-        linecount = linecount + 1
+        Linecount = Linecount + 1
     end
     local file = io.input("username.txt")
-    while i <= linecount do
+    while i <= Linecount do
         local temp = io.read("l")
         table.insert(Services, temp)
         i = i + 1
@@ -16,7 +16,7 @@ function Loadtable()
     io.close()
     local pword = io.input("password.txt")
     local w = 0
-    while w <= linecount do
+    while w <= Linecount do
         local temp2 = io.read("l")
         table.insert(Password, temp2)
         w = w + 1
@@ -71,36 +71,15 @@ end
 --Ideas on how to fix:
 --1) Change how the file is read to get more fine control over which line it reads
 local function opt2() --WIP
-    Services = {}
-    Password = {}
-    local linecount = 0
-    local i = 0
-    for line in io.lines("username.txt") do
-        linecount = linecount + 1
-    end
-    local file = io.input("username.txt")
-    while i <= linecount do
-        local temp = io.read("l")
-        table.insert(Services, temp)
-        i = i + 1
-    end
-    io.close()
-    local pword = io.input("password.txt")
-    local w = 0
-    while w <= linecount do
-        local temp2 = io.read("l")
-        table.insert(Password, temp2)
-        w = w + 1
-    end
-    io.close()
+    Loadtable()
     print("What services password are you searching for?:")
     local answer2 = io.stdin:read()
     local j = 1
-    while j <= linecount do
+    while j <= Linecount do
         if Services[j] == answer2 then
             print(Password[j])
             break
-        elseif j == linecount then
+        elseif j == Linecount then
             print("Unable to find password")
             break
         else
