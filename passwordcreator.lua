@@ -1,4 +1,5 @@
 
+--This function loads the table from scratch evertime it is called
 function Loadtable()
     Services = {}
     Password = {}
@@ -66,10 +67,7 @@ local function opt1mod(answer, pword) --This is a mod of option one that is only
     io.close(P)
 end
 
---WIP still but ive made progress
---Still running into the problem of every entry getting added to the table
---Ideas on how to fix:
---1) Change how the file is read to get more fine control over which line it reads
+--Iterates through the list and returns the password if one exsists
 local function opt2() --WIP
     Loadtable()
     print("What services password are you searching for?:")
@@ -145,10 +143,13 @@ local function opt3()
 end
 
 local function opt4()
+    Loadtable()
     for k,v in pairs(Services) do
         print(k,v)
     end
-    
+    for k,v in pairs(Password) do
+        print(k,v)
+    end
 end
 
 local function opt5()
