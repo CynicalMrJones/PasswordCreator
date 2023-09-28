@@ -1,5 +1,6 @@
 
 passwordcreator = {}
+
 --This function loads the table from scratch evertime it is called
 function Loadtable()
     Services = {}
@@ -73,7 +74,7 @@ local function opt2() --WIP
     local answer2 = io.stdin:read()
     local j = 1
     while j <= Linecount do
-        if Services[j] == answer2 then
+        if Services[j].lower == answer2.lower then
             print(Password[j])
             break
         elseif j == Linecount then
@@ -108,7 +109,7 @@ local function opt3()
         else
             pt1 = randomLow .. pt1
         end
-        i = i+1
+        i = i + 1
     end
 
     local function symbols() --Seperate function for the symbol selection
@@ -140,11 +141,10 @@ end
 
 local function opt4()
     Loadtable()
-    for k,v in pairs(Services) do
-        print(k,v)
-    end
-    for k,v in pairs(Password) do
-        print(k,v)
+    for i = 1, Linecount, 1 do
+       print(Services[i])
+       print(Password[i])
+       print("")
     end
 end
 
