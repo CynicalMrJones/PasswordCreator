@@ -1,4 +1,5 @@
 
+passwordcreator = {}
 --This function loads the table from scratch evertime it is called
 function Loadtable()
     Services = {}
@@ -14,7 +15,7 @@ function Loadtable()
         table.insert(Services, temp)
         i = i + 1
     end
-    io.close()
+    io.close(file)
     local pword = io.input("password.txt")
     local w = 0
     while w <= Linecount do
@@ -22,11 +23,10 @@ function Loadtable()
         table.insert(Password, temp2)
         w = w + 1
     end
-    io.close()
+    io.close(pword)
 end
 --This is a Dogshit password generator and app again
 function DrawMenu()
-    os.execute("clear")
     print(" ---------------------------------------------------------------------------")
     print("|   Hello and welcome the the password manager!                             |")
     print("|   What would you like to do?                                              |")
@@ -52,7 +52,6 @@ local function opt1() --This serves as what happens when the user picks option 1
     io.output(P)
     io.write(password,"\n")
     io.close(P)
-    DrawMenu()
     print("Password Successfully saved")
 end
 
@@ -136,9 +135,6 @@ local function opt3()
         answer = io.stdin:read()
         pword = final
         opt1mod(answer, pword)
-        DrawMenu()
-    else
-        DrawMenu()
     end
 end
 
@@ -160,20 +156,30 @@ local function opt6()
     os.execute("exit")
 end
 
-Loadtable()
-DrawMenu()
-print("What option would you like?:")
-local answer = io.stdin:read()
-if answer == "1" then
-    opt1()
-elseif answer == "2" then
-    opt2()
-elseif answer == "3" then
-    opt3()
-elseif answer == "4" then
-    opt4()
-elseif answer == "5" then
-    opt5()
-elseif answer == "6" then
-    opt6()
+function passwordcreator.App()
+    Loadtable()
+    DrawMenu()
+    print("What option would you like?:")
+    local answer = io.stdin:read()
+    if answer == "1" then
+        opt1()
+        passwordcreator.App()
+    elseif answer == "2" then
+        opt2()
+        passwordcreator.App()
+    elseif answer == "3" then
+        opt3()
+        passwordcreator.App()
+    elseif answer == "4" then
+        opt4()
+        passwordcreator.App()
+    elseif answer == "5" then
+        opt5()
+        passwordcreator.App()
+    elseif answer == "6" then
+        opt6()
+    else
+        passwordcreator.App()
+    end
 end
+return passwordcreator
