@@ -26,6 +26,15 @@ function Loadtable()
     end
     io.close(pword)
 end
+
+--This is for testing purposes
+function TableIterator()
+    Loadtable()
+    for i = 1, Linecount, 1 do
+        print(Services[i])
+    end
+end
+
 --This is a Dogshit password generator and app again
 function DrawMenu()
     print(" ---------------------------------------------------------------------------")
@@ -40,11 +49,20 @@ function DrawMenu()
     print(" ---------------------------------------------------------------------------")
 end
 
-local function opt1() --This serves as what happens when the user picks option 1 hence the name
-    print("What is the name of the service that the password is for")
-    local service = io.stdin:read()
-    print("What is the password")
-    local password = io.stdin:read()
+local function ServiceChecker(name)
+    Loadtable()
+    local i = 1
+    while i <= Linecount do
+        if Services[i] == name then
+            return true
+        elseif Services[i] ~= name then
+            i = i + 1
+        end
+    end
+    return false
+end
+
+local function opt1(service, password) --This serves as what happens when the user picks option 1 hence the name
     local U = io.open("username.txt","a")
     io.output(U)
     io.write(service,"\n")
@@ -56,16 +74,6 @@ local function opt1() --This serves as what happens when the user picks option 1
     print("Password Successfully saved")
 end
 
-local function opt1mod(answer, pword) --This is a mod of option one that is only called in option 3. Very simple
-    local U = io.open("username.txt","a")
-    io.output(U)
-    io.write(answer,"\n")
-    io.close(U)
-    local P = io.open("password.txt","a")
-    io.output(P)
-    io.write(pword,"\n")
-    io.close(P)
-end
 
 --Iterates through the list and returns the password if one exsists
 local function opt2() --WIP
@@ -135,7 +143,7 @@ local function opt3()
         print("What service is it for?:")
         answer = io.stdin:read()
         pword = final
-        opt1mod(answer, pword)
+        opt1(answer, pword)
     end
 end
 
@@ -161,23 +169,43 @@ function passwordcreator.App()
     DrawMenu()
     print("What option would you like?:")
     local answer = io.stdin:read()
+
     if answer == "1" then
-        opt1()
+        print("What is the name of the service that the password is for")
+        local bool = true
+        while bool  == true do
+        Service = io.stdin:read()
+            if ServiceChecker(Service) == true then
+                print("This service already has an entry. Please pick another:")
+                bool = true
+            else
+                print("What is the password")
+                Password = io.stdin:read()
+                bool = false
+            end
+        end
+        opt1(Service, Password)
         passwordcreator.App()
+
     elseif answer == "2" then
         opt2()
         passwordcreator.App()
+
     elseif answer == "3" then
         opt3()
         passwordcreator.App()
+
     elseif answer == "4" then
         opt4()
         passwordcreator.App()
+
     elseif answer == "5" then
         opt5()
         passwordcreator.App()
+
     elseif answer == "6" then
         opt6()
+
     else
         passwordcreator.App()
     end
