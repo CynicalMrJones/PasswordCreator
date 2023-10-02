@@ -141,9 +141,18 @@ local function opt3()
     local pword
     if answer == "y" then
         print("What service is it for?:")
-        answer = io.stdin:read()
-        pword = final
-        opt1(answer, pword)
+        local bool = true
+        while bool  == true do
+            Service = io.stdin:read()
+            if ServiceChecker(Service) == true then
+                print("This service already has an entry. Please pick another:")
+                bool = true
+            else
+                pword = final
+                bool = false
+            end
+        end
+        opt1(Service, pword)
     end
 end
 
