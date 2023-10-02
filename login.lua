@@ -2,6 +2,7 @@
 passwordcreator = require"passwordcreator"
 
 os.execute("clear")
+
 local function GetPassword()
     local test = io.input("redundant.txt")
     Password = io.read("l")
