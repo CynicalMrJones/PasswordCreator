@@ -12,7 +12,7 @@ function Loadtable()
     end
     local file = io.input("username.txt")
     while i <= Linecount do
-        local temp = io.read("l")
+        local temp = io.read("*line")
         table.insert(Services, temp)
         i = i + 1
     end
@@ -20,11 +20,29 @@ function Loadtable()
     local pword = io.input("password.txt")
     local w = 0
     while w <= Linecount do
-        local temp2 = io.read("l")
+        local temp2 = io.read("*line")
         table.insert(Password, temp2)
         w = w + 1
     end
     io.close(pword)
+end
+
+function WriteTable()
+    os.execute("rm username.txt password.txt")
+    os.execute("touch username.txt password.txt")
+    for i = 1, #Services, 1 do
+        local usernamefile = io.open("username.txt", "a")
+        io.output(usernamefile)
+        io.write(Services[i], "\n")
+        io.close(usernamefile)
+
+        local passwordfile = io.open("password.txt", "a")
+        io.output(passwordfile)
+        io.write(Password[i], "\n")
+        io.close(passwordfile)
+    end
+    TableIterator()
+    Loadtable()
 end
 
 --This is for testing purposes
@@ -166,7 +184,29 @@ local function opt4()
 end
 
 local function opt5()
-    
+    Loadtable()
+    print("What is the service you want to delete")
+    local bool = true
+    while bool  == true do
+        local Service = io.stdin:read()
+        if ServiceChecker(Service) == false then
+            print("This service does not exsist, please try another")
+            bool = true
+        else
+            for i = 1, #Services, 1 do
+                if Services[i] == Service then
+                    table.remove(Services, i)
+                    table.remove(Password, i)
+                    WriteTable()
+                    print("Entry Successfully deleted")
+                    break
+                else
+                    print("Something went terribly wrong HOLY FUCK")
+                end
+            end
+            bool = false
+        end
+    end
 end
 
 local function opt6()
