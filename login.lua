@@ -5,7 +5,7 @@ os.execute("clear")
 
 local function GetPassword()
     local test = io.input("redundant.txt")
-    Password = io.read("l")
+    Password = io.read("*line")
     io.close(test)
 end
 
