@@ -11,6 +11,7 @@ end
 
 local function Login()
     GetPassword()
+    os.execute("touch username.txt password.txt")
     print(" ---------------------------------------------------------------------------")
     print("|   Please login with a the password                                        |")
     print(" ---------------------------------------------------------------------------")
