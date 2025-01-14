@@ -43,7 +43,11 @@ end
 
 function Checker()
     local f=io.open("redundant.txt","r")
-    if f~=nil then io.close(f) return true else return false end
+    if f~=nil then io.close(f)
+        return true 
+    else 
+        return false 
+    end
 end
 
 firsttime()
